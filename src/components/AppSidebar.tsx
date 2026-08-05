@@ -4,25 +4,37 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard, FileText, Image, ListChecks, Film, Video, Music, Settings,
   ChevronLeft, ChevronRight, BarChart3, BookOpen, Menu, X, Clapperboard, Trophy,
-  Sun, Moon, Crown,
+  Sun, Moon, Crown, Users, Mail, Sparkles,
 } from "lucide-react";
 import logoImg from "@/assets/logo-circle.png";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/useTheme";
 import { useSubscription } from "@/hooks/useSubscription";
 
-const navItems = [
+interface NavItem {
+  icon: React.ElementType;
+  label: string;
+  path: string;
+  neon: "pink" | "cyan" | "purple";
+  comingSoon?: boolean;
+}
+
+const navItems: NavItem[] = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard", neon: "pink" },
   { icon: FileText, label: "Script", path: "/script", neon: "cyan" },
   { icon: ListChecks, label: "Shot List", path: "/shots", neon: "pink" },
   { icon: Image, label: "Storyboard", path: "/storyboard", neon: "cyan" },
+  { icon: Users, label: "Character Bible", path: "/characters", neon: "purple" },
   { icon: Video, label: "Scene Gen", path: "/ai-studio", neon: "cyan" },
   { icon: Film, label: "Editor", path: "/editor", neon: "pink" },
   { icon: Music, label: "AI Music", path: "/music", neon: "purple" },
+  { icon: Music, label: "Gemini Music", path: "/gemini-music", neon: "cyan" },
   { icon: Clapperboard, label: "Director AI", path: "/director", neon: "pink" },
+  { icon: Sparkles, label: "Gemini Lab", path: "/gemini", neon: "cyan" },
   { icon: Trophy, label: "Festival", path: "/festival", neon: "purple" },
-  { icon: Settings, label: "Settings", path: "/settings", neon: "pink" },
-  { icon: BookOpen, label: "Learn", path: "/learn", neon: "cyan" },
+  { icon: BookOpen, label: "Studio Wiki", path: "/wiki", neon: "cyan" },
+  { icon: Mail, label: "Contact Us", path: "/contact", neon: "pink" },
+  { icon: Settings, label: "Settings", path: "/settings", neon: "purple" },
   { icon: BarChart3, label: "Analytics Docs", path: "/analytics-docs", neon: "cyan" },
 ];
 
@@ -95,7 +107,7 @@ const NavContent = ({ collapsed, location, onNavigate }: { collapsed: boolean; l
           {!collapsed && (
             <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="truncate flex items-center gap-2">
               {item.label}
-              {(item as any).comingSoon && (
+              {item.comingSoon && (
                 <span className="text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20 leading-none">Soon</span>
               )}
             </motion.span>
@@ -144,8 +156,8 @@ const AppSidebar = () => {
               >
                 <div className="flex items-center justify-between px-4 h-16 border-b border-border">
                   <div className="flex items-center gap-3">
-                    <img src={logoImg} alt="That's A Wrap" className="h-9 shrink-0 object-contain logo-gold-ring" />
-                    <span className="font-display font-bold text-lg text-foreground truncate">That's A Wrap</span>
+                    <img src={logoImg} alt="PromptFilmz" className="h-9 shrink-0 object-contain logo-gold-ring" />
+                    <span className="font-display font-bold text-lg text-foreground truncate">PromptFilmz</span>
                   </div>
                   <button onClick={() => setMobileOpen(false)} className="text-muted-foreground hover:text-foreground">
                     <X className="w-5 h-5" />
@@ -172,14 +184,14 @@ const AppSidebar = () => {
     >
       {/* Logo */}
       <div className="flex items-center gap-3 px-4 h-16 border-b border-border">
-        <img src={logoImg} alt="That's A Wrap" className={`shrink-0 object-contain logo-gold-ring ${collapsed ? 'h-9' : 'h-10'}`} />
+        <img src={logoImg} alt="PromptFilmz" className={`shrink-0 object-contain logo-gold-ring ${collapsed ? 'h-9' : 'h-10'}`} />
         {!collapsed && (
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="font-display font-bold text-lg text-foreground truncate"
           >
-            That's A Wrap
+            PromptFilmz
           </motion.span>
         )}
       </div>
@@ -189,6 +201,7 @@ const AppSidebar = () => {
       {/* Theme toggle + Collapse toggle */}
       <div className="border-t border-border py-2 space-y-1">
         <PlanBadge collapsed={collapsed} />
+        <ThemeToggle collapsed={collapsed} />
         <button
           onClick={() => setCollapsed(!collapsed)}
           className="mx-2 p-2 mb-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-[var(--neon-pink-05)] transition-colors flex items-center justify-center"
