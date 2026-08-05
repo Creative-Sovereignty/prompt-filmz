@@ -14,9 +14,12 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const ScriptEditor = lazy(() => import("./pages/ScriptEditor"));
 const Storyboard = lazy(() => import("./pages/Storyboard"));
 const ShotList = lazy(() => import("./pages/ShotList"));
+const CharacterBible = lazy(() => import("./pages/CharacterBible"));
 const VideoEditor = lazy(() => import("./pages/VideoEditor"));
 const AIMusic = lazy(() => import("./pages/AIMusic"));
+const GeminiMusic = lazy(() => import("./pages/GeminiMusic"));
 const Veo3 = lazy(() => import("./pages/Veo3"));
+const GeminiLab = lazy(() => import("./pages/GeminiLab"));
 const Settings = lazy(() => import("./pages/Settings"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Install = lazy(() => import("./pages/Install"));
@@ -26,6 +29,7 @@ const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AnalyticsDocs = lazy(() => import("./pages/AnalyticsDocs"));
 const Learn = lazy(() => import("./pages/Learn"));
+const Contact = lazy(() => import("./pages/Contact"));
 const DirectorAI = lazy(() => import("./pages/DirectorAI"));
 const FestivalGallery = lazy(() => import("./pages/FestivalGallery"));
 const CheckoutSuccess = lazy(() => import("./pages/CheckoutSuccess"));
@@ -34,6 +38,7 @@ const Terms = lazy(() => import("./pages/Terms"));
 import ChatWidget from "./components/ChatWidget";
 import ScrollToTop from "./components/ScrollToTop";
 import PWAInstallBanner from "./components/PWAInstallBanner";
+import { CookieConsentBanner } from "./components/CookieConsentBanner";
 import RouteTransition from "./components/RouteTransition";
 import DeepLinkHandler from "./components/DeepLinkHandler";
 import AuthLoadingScreen from "./components/AuthLoadingScreen";
@@ -76,13 +81,18 @@ const App = () => (
                   <Route path="/script" element={<ProtectedRoute><ScriptEditor /></ProtectedRoute>} />
                   <Route path="/storyboard" element={<ProtectedRoute><Storyboard /></ProtectedRoute>} />
                   <Route path="/shots" element={<ProtectedRoute><ShotList /></ProtectedRoute>} />
+                  <Route path="/characters" element={<ProtectedRoute><CharacterBible /></ProtectedRoute>} />
                   <Route path="/editor" element={<ProtectedRoute><VideoEditor /></ProtectedRoute>} />
                   <Route path="/veo3" element={<ProtectedRoute><Veo3 /></ProtectedRoute>} />
                   <Route path="/ai-studio" element={<ProtectedRoute><Veo3 /></ProtectedRoute>} />
                   <Route path="/music" element={<ProtectedRoute><AIMusic /></ProtectedRoute>} />
+                  <Route path="/gemini-music" element={<ProtectedRoute><GeminiMusic /></ProtectedRoute>} />
+                  <Route path="/gemini" element={<ProtectedRoute><GeminiLab /></ProtectedRoute>} />
                   <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
                   <Route path="/analytics-docs" element={<ProtectedRoute><AnalyticsDocs /></ProtectedRoute>} />
                   <Route path="/learn" element={<Learn />} />
+                  <Route path="/wiki" element={<Learn />} />
+                  <Route path="/contact" element={<Contact />} />
                   <Route path="/director" element={<DirectorAI />} />
                   <Route path="/festival" element={<ProtectedRoute><FestivalGallery /></ProtectedRoute>} />
                   <Route path="/checkout-success" element={<ProtectedRoute><CheckoutSuccess /></ProtectedRoute>} />
@@ -95,6 +105,7 @@ const App = () => (
             <ChatWidget />
             <ScrollToTop />
             <PWAInstallBanner />
+            <CookieConsentBanner />
           </BrowserRouter>
         </TooltipProvider>
       </AuthProvider>
